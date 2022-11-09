@@ -43,7 +43,7 @@
     "zone.js": "~0.11.6"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^14.0.6",
+    "@angular-devkit/build-angular": "^14.2.9",
     "@angular-eslint/builder": "14.0.2",
     "@angular-eslint/eslint-plugin": "14.0.2",
     "@angular-eslint/eslint-plugin-template": "14.0.2",
@@ -60,6 +60,7 @@
     "@types/node": "^18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
+    "com.jonathanwkelly.midisender": "git+https://github.com/jonathanwkelly/cordova-plugin-midi-sender.git",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
@@ -93,7 +94,7 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-midi-sender": {}
+      "com.jonathanwkelly.midisender": {}
     },
     "platforms": [
       "ios"

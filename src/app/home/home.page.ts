@@ -15,7 +15,7 @@ import MIDIMessageEvent = WebMidi.MIDIMessageEvent;
 import MIDIInput = WebMidi.MIDIInput;
 import MIDIOutput = WebMidi.MIDIOutput;
 
-declare const MIDISender: any;
+declare const cordova: any;
 
 @Component({
   selector: 'app-home',
@@ -549,7 +549,9 @@ export class HomePageComponent implements OnInit {
   // Initialize MIDI
   midiSetup(): void {
     this.plaftorm.ready().then(() => {
-      MIDISender.getIncoming((msg: any) => {
+      alert('Platform ready');
+      cordova.plugins.MIDISender.sendNote(1, 60, 127);
+      cordova.plugins.MIDISender.getIncoming((msg: any) => {
         if (msg.channel) {
           // Ignore msg sent on plugin initialization
           /* MESSAGE DATA
@@ -560,6 +562,7 @@ export class HomePageComponent implements OnInit {
         */
         }
 
+        alert('MIDI ready!');
         alert(msg);
         this.midiAvailable = true;
       });
