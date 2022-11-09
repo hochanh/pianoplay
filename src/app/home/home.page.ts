@@ -1,7 +1,7 @@
 // [PianoPlay](https://michaelecke.com/pianoplay) - Copyright (c) 2021 Rodrigo Jorge Vilar de Linares.
 
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
-import { IonContent } from '@ionic/angular';
+import { IonContent, Platform } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Piano } from '@tonejs/piano';
 import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay';
@@ -14,6 +14,8 @@ import MIDIConnectionEvent = WebMidi.MIDIConnectionEvent;
 import MIDIMessageEvent = WebMidi.MIDIMessageEvent;
 import MIDIInput = WebMidi.MIDIInput;
 import MIDIOutput = WebMidi.MIDIOutput;
+
+declare const MIDISender: any;
 
 @Component({
   selector: 'app-home',
@@ -71,7 +73,8 @@ export class HomePageComponent implements OnInit {
   constructor(
     private notesService: NotesService,
     private changeRef: ChangeDetectorRef,
-    public translate: TranslateService
+    public translate: TranslateService,
+    public plaftorm: Platform
   ) {
     // create the piano and load 1 velocity steps to reduce memory consumption
     this.piano = new Piano({
@@ -545,8 +548,21 @@ export class HomePageComponent implements OnInit {
 
   // Initialize MIDI
   midiSetup(): void {
-    navigator.requestMIDIAccess?.({ sysex: true }).then(this.midiSuccess.bind(this), () => {
-      this.midiAvailable = false;
+    this.plaftorm.ready().then(() => {
+      MIDISender.getIncoming((msg: any) => {
+        if (msg.channel) {
+          // Ignore msg sent on plugin initialization
+          /* MESSAGE DATA
+          msg.channel = MIDI channel (1-16)
+          msg.type = Type of MIDI message: 'Program Change', 'Control Change', 'Note On', 'Note off'
+          msg.data = MIDI Data: <number> for PC/CC (1-128), or Note (i.e. "C3") for Note On/Off
+          msg.value = Not present for 'Program Change' messages
+        */
+        }
+
+        alert(msg);
+        this.midiAvailable = true;
+      });
     });
   }
 
