@@ -551,20 +551,17 @@ export class HomePageComponent implements OnInit {
     this.plaftorm.ready().then(() => {
       cordova.plugins.MIDISender.getIncoming((msg: any) => {
         if (msg.channel) {
-          // Ignore msg sent on plugin initialization
-          /* MESSAGE DATA
-          msg.channel = MIDI channel (1-16)
-          msg.type = Type of MIDI message: 'Program Change', 'Control Change', 'Note On', 'Note off'
-          msg.data = MIDI Data: <number> for PC/CC (1-128), or Note (i.e. "C3") for Note On/Off
-          msg.value = Not present for 'Program Change' messages
-        */
+          if (!this.midiAvailable) {
+            this.midiAvailable = true;
+          }
+          if (msg.type === 'Note On') {
+            this.midiNoteOn(Date.now(), msg.data);
+            setTimeout(() => {
+              this.midiNoteOff(Date.now(), msg.data);
+            }, 1000);
+          }
         }
-
-        alert('MIDI ready!');
-        alert(msg);
-        this.midiAvailable = true;
       });
-      cordova.plugins.MIDISender.sendNote(1, 60, 127);
     });
   }
 

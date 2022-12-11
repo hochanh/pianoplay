@@ -63,7 +63,7 @@
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
-    "cordova-plugin-midi-sender": "git+https://github.com/josiaho/cordova-plugin-midi-sender.git",
+    "cordova-plugin-midi-sender": "git+https://github.com/hochanh/cordova-plugin-midi-sender.git",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "eslint": "^8.20.0",
