@@ -9,12 +9,6 @@ import { OpenSheetMusicDisplay } from 'opensheetmusicdisplay';
 import { NotesService } from '../notes.service';
 import { PianoKeyboardComponent } from '../piano-keyboard/piano-keyboard.component';
 
-import MIDIAccess = WebMidi.MIDIAccess;
-import MIDIConnectionEvent = WebMidi.MIDIConnectionEvent;
-import MIDIMessageEvent = WebMidi.MIDIMessageEvent;
-import MIDIInput = WebMidi.MIDIInput;
-import MIDIOutput = WebMidi.MIDIOutput;
-
 declare const cordova: any;
 
 @Component({
@@ -53,9 +47,6 @@ export class HomePageComponent implements OnInit {
 
   // MIDI Devices
   midiAvailable = false;
-  midiInputs: MIDIInput[] = [];
-  midiOutputs: MIDIOutput[] = [];
-  midiDevice = 'none';
 
   // Initialize maps of notes comming from MIDI Input
   mapNotesAutoPressed = new Map();
@@ -562,56 +553,6 @@ export class HomePageComponent implements OnInit {
         }
       });
     });
-  }
-
-  // Register MIDI Inputs' handlers and outputs
-  midiInitDev(access: MIDIAccess): void {
-    const iterInputs = access.inputs.values();
-    const inputs = [];
-    for (let o = iterInputs.next(); !o.done; o = iterInputs.next()) {
-      if (!o.value.name?.includes('Midi Through')) inputs.push(o.value);
-    }
-    this.midiDevice = 'none';
-
-    for (let port = 0; port < inputs.length; port++) {
-      this.midiDevice = inputs[port].name + ' (' + inputs[port].manufacturer + ')';
-      inputs[port].onmidimessage = (event: MIDIMessageEvent) => {
-        const NOTE_ON = 9;
-        const NOTE_OFF = 8;
-        const cmd = event.data[0] >> 4;
-        // const channel = event.data[0] & 0xf;
-        let pitch = 0;
-        if (event.data.length > 1) pitch = event.data[1];
-        let velocity = 0;
-        if (event.data.length > 2) velocity = event.data[2];
-        if (cmd === NOTE_OFF || (cmd === NOTE_ON && velocity === 0)) {
-          this.midiNoteOff(event.timeStamp, pitch);
-        } else if (cmd === NOTE_ON) {
-          this.midiNoteOn(event.timeStamp, pitch);
-        }
-      };
-    }
-
-    const iterOutputs = access.outputs.values();
-    const outputs = [];
-    for (let o = iterOutputs.next(); !o.done; o = iterOutputs.next()) {
-      if (!o.value.name?.includes('Midi Through')) outputs.push(o.value);
-    }
-
-    this.midiInputs = inputs;
-    this.midiOutputs = outputs;
-    this.changeRef.detectChanges();
-  }
-
-  // Initialize MIDI event listeners
-  midiSuccess(access: MIDIAccess): void {
-    this.midiAvailable = true;
-
-    access.onstatechange = (event: MIDIConnectionEvent) => {
-      this.midiInitDev(event.target as MIDIAccess);
-    };
-
-    this.midiInitDev(access);
   }
 
   // Press note on Ouput MIDI Device
