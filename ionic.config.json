@@ -1,5 +1,7 @@
 {
   "name": "Piano Play",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
