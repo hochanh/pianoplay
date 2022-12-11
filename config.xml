@@ -98,7 +98,4 @@
     <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^5.0.0" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
-    <feature name="MIDISender">
-        <param name="ios-package" onload="true" value="MIDISender" />
-    </feature>
 </widget>

@@ -549,7 +549,10 @@ export class HomePageComponent implements OnInit {
   // Initialize MIDI
   midiSetup(): void {
     this.plaftorm.ready().then(() => {
-      alert('Platform ready');
+      alert(cordova.plugins.MIDISender);
+      alert(cordova.plugins.MIDISender.module);
+      alert(cordova.plugins.MIDISender.getIncoming);
+      alert(cordova.plugins.MIDISender.module.getIncoming);
       cordova.plugins.MIDISender.sendNote(1, 60, 127);
       cordova.plugins.MIDISender.getIncoming((msg: any) => {
         if (msg.channel) {

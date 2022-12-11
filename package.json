@@ -60,11 +60,10 @@
     "@types/node": "^18.0.5",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
-    "com.jonathanwkelly.midisender": "git+https://github.com/jonathanwkelly/cordova-plugin-midi-sender.git",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^5.0.0",
-    "cordova-plugin-midi-sender-android": "git+https://github.com/manuelnelson/cordova-plugin-midi-sender.git",
+    "cordova-plugin-midi-sender": "git+https://github.com/hochanh/cordova-plugin-midi-sender.git",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
     "eslint": "^8.20.0",
@@ -94,7 +93,7 @@
       "cordova-plugin-splashscreen": {},
       "cordova-plugin-ionic-webview": {},
       "cordova-plugin-ionic-keyboard": {},
-      "com.jonathanwkelly.midisender": {}
+      "cordova-plugin-midi-sender": {}
     },
     "platforms": [
       "ios"
