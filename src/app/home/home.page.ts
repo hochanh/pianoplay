@@ -556,9 +556,8 @@ export class HomePageComponent implements OnInit {
           }
           if (msg.type === 'Note On') {
             this.midiNoteOn(Date.now(), msg.data);
-            setTimeout(() => {
-              this.midiNoteOff(Date.now(), msg.data);
-            }, 1000);
+          } else if (msg.type === 'Note Off') {
+            this.midiNoteOff(Date.now(), msg.data);
           }
         }
       });
